@@ -26,11 +26,6 @@ class ModeloUsuarios {
     }
 }
 
-/**
- * =================================================================
- * CAPA CONTROLADOR (Orquestador de Eventos y Lógica de Negocio)
- * =================================================================
- */
 class AppController {
     static init() {
         this.bindEvents();
@@ -67,13 +62,11 @@ class AppController {
 
         const mensajeDiv = document.getElementById('mensaje');
 
-        // Criterio de Aceptación: Validar existencia de mail único
         if (ModeloUsuarios.existeEmail(email)) {
             this.renderMensaje(mensajeDiv, 'Error: El correo electrónico ya se encuentra registrado.', 'error');
             return;
         }
 
-        // Estructura Entidad Cliente
         const nuevoCliente = {
             nombre,
             apellido,
@@ -89,7 +82,6 @@ class AppController {
             }
         };
 
-        // Persistir mediante el Modelo
         ModeloUsuarios.guardar(nuevoCliente);
 
         this.renderMensaje(mensajeDiv, '✔ ¡Registro completado con éxito! Redirigiendo...', 'success');
@@ -121,7 +113,6 @@ class AppController {
         }
     }
 
-    // Auxiliar de la Vista
     static renderMensaje(elemento, texto, tipo) {
         elemento.innerText = texto;
         elemento.className = `msg ${tipo}`;
@@ -129,5 +120,4 @@ class AppController {
     }
 }
 
-// Inicializar el controlador una vez cargado el DOM
 document.addEventListener('DOMContentLoaded', () => AppController.init());
