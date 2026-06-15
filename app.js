@@ -1,8 +1,4 @@
-/**
- * =================================================================
- * CAPA MODELO (Estructura de Datos y Lógica de Persistencia)
- * =================================================================
- */
+
 class ModeloUsuarios {
     static getSTORAGE_KEY() {
         return 'usuarios_bodypaint_db';
