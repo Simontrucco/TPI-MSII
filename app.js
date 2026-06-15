@@ -119,5 +119,4 @@ class AppController {
         elemento.style.display = 'block';
     }
 }
-
 document.addEventListener('DOMContentLoaded', () => AppController.init());
