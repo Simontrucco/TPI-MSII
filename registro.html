@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Paint - Registro de Cliente</title>
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --btn-grad: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            --bg-color: #0f0c20;
+            --card-bg: #1a1636;
+            --text-color: #ffffff;
+            --input-bg: #252048;
+            --border-color: #3b3575;
+        }
+        body { 
+            font-family: 'Poppins', 'Segoe UI', sans-serif; 
+            background: var(--bg-color); 
+            color: var(--text-color);
+            margin: 0; 
+            padding: 40px 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .container { 
+            background: var(--card-bg); 
+            padding: 40px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            width: 100%; 
+            max-width: 550px; 
+            border: 1px solid var(--border-color);
+        }
+        h2 { text-align: center; margin-top: 0; font-weight: 600; letter-spacing: 1px; background: linear-gradient(to right, #ff416c, #ff4b2b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p.subtitle { text-align: center; color: #8b85b1; font-size: 14px; margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 500; color: #a29bfe; text-transform: uppercase; letter-spacing: 0.5px; }
+        input { width: 100%; padding: 12px 16px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; color: #fff; font-size: 15px; transition: all 0.3s ease; box-sizing: border-box; }
+        input:focus { outline: none; border-color: #ff416c; box-shadow: 0 0 8px rgba(255, 65, 108, 0.4); }
+        .row { display: flex; gap: 16px; }
+        .btn { width: 100%; padding: 14px; background: var(--btn-grad); border: none; color: white; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; margin-top: 15px; transition: transform 0.2s, opacity 0.2s; box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4); }
+        .btn:hover { transform: translateY(-2px); opacity: 0.95; }
+        .btn:active { transform: translateY(0); }
+        .msg { padding: 12px; margin-bottom: 20px; border-radius: 8px; display: none; text-align: center; font-size: 14px; font-weight: 500; }
+        .error { background-color: rgba(234, 84, 85, 0.2); color: #ea5455; border: 1px solid #ea5455; }
+        .success { background-color: rgba(40, 199, 111, 0.2); color: #28c76f; border: 1px solid #28c76f; }
+        .link { text-align: center; margin-top: 25px; display: block; color: #00ea92; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.3s; }
+        .link:hover { color: #ffffff; text-decoration: underline; }
+        hr { border: 0; border-top: 1px solid var(--border-color); margin: 30px 0; }
+        h4 { margin: 0 0 15px 0; color: #ff416c; font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>BODY PAINT</h2>
+    <p class="subtitle">Crear una nueva cuenta de cliente</p>
+    <div id="mensaje" class="msg"></div>
+    
+    <form id="formRegistro">
+        <div class="row">
+            <div class="form-group" style="flex: 1;">
+                <label>Nombre *</label>
+                <input type="text" id="nombre" required>
+            </div>
+            <div class="form-group" style="flex: 1;">
+                <label>Apellido *</label>
+                <input type="text" id="apellido" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Correo Electrónico *</label>
+            <input type="email" id="email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Contraseña *</label>
+            <input type="password" id="password" required>
+        </div>
+
+        <hr>
+        <h4>Dirección de Envío por Defecto</h4>
+
+        <div class="row">
+            <div class="form-group" style="flex: 1;">
+                <label>País *</label>
+                <input type="text" id="pais" required>
+            </div>
+            <div class="form-group" style="flex: 1;">
+                <label>Provincia / Estado *</label>
+                <input type="text" id="provincia" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Localidad *</label>
+            <input type="text" id="localidad" required>
+        </div>
+
+        <div class="form-group">
+            <label>Calle y Número *</label>
+            <input type="text" id="calle" placeholder="Ej: Av. Siempreviva 742" required>
+        </div>
+
+        <div class="row">
+            <div class="form-group" style="flex: 1;">
+                <label>Piso (Opcional)</label>
+                <input type="text" id="piso">
+            </div>
+            <div class="form-group" style="flex: 1;">
+                <label>Depto (Opcional)</label>
+                <input type="text" id="depto">
+            </div>
+        </div>
+
+        <button type="submit" class="btn">Registrar Cuenta</button>
+    </form>
+    <a href="login.html" class="link">¿Ya tienes cuenta? Inicia sesión aquí</a>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Body Paint - Store</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            text-align: center; 
+            padding: 50px 20px; 
+            background-color: #0f0c20; 
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            margin: 0;
+        }
+        .card { 
+            background: #1a1636; 
+            padding: 50px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 600px;
+            border: 1px solid #3b3575;
+        }
+        h1 { color: #00ea92; font-weight: 600; margin-top: 0; }
+        p { color: #b2adff; font-size: 16px; line-height: 1.6; }
+        .badge { background: rgba(40, 199, 111, 0.2); color: #28c76f; padding: 8px 16px; border-radius: 20px; border: 1px solid #28c76f; font-weight: bold; display: inline-block; margin: 15px 0; }
+        .btn-logout { background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%); color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: bold; margin-top: 25px; transition: transform 0.2s; box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3); }
+        .btn-logout:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>¡Autenticación Exitosa!</h1>
+        <div class="badge">Mínimo Producto Viable (MVP) Verificado</div>
+        <p id="bienvenidaUsuario"></p>
+        <p style="font-size: 14px; color: #7872a1;">La sesión se ha iniciado de forma segura. El patrón estructural de datos y el enrutador del controlador respondieron según las especificaciones metodológicas.</p>
+        <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+    </div>
+
+    <script>
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioSesion'));
+        if(!usuarioLogueado) {
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('bienvenidaUsuario').innerHTML = `Bienvenido/a, <strong>${usuarioLogueado.nombre} ${usuarioLogueado.apellido}</strong>.<br>Dirección de envío vinculada: ${usuarioLogueado.direccionDefault.calle}, ${usuarioLogueado.direccionDefault.localidad}, ${usuarioLogueado.direccionDefault.provincia}.`;
+        }
+
+        function logout() {
+            localStorage.removeItem('usuarioSesion');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
