@@ -2,50 +2,316 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Body Paint - Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Paint — Atelier Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-base: #f8f9fa;
+            --surface: #ffffff;
+            --text-main: #0a0915;
+            --text-muted: #6c757d;
+            --electric-blue: #0052ff;
+            --neon-pink: #ff007a;
+            --border-thin: 1px solid #e9ecef;
+            --neon-glow: 0 8px 32px rgba(0, 82, 255, 0.08);
+        }
+
         body { 
-            font-family: 'Segoe UI', sans-serif; 
-            text-align: center; 
-            padding: 50px 20px; 
-            background-color: #0f0c20; 
-            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--bg-base); 
+            color: var(--text-main);
+            margin: 0; 
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 25px 50px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            height: 80vh;
-            margin: 0;
+            border-bottom: var(--border-thin);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .card { 
-            background: #1a1636; 
-            padding: 50px; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            max-width: 600px;
-            border: 1px solid #3b3575;
+
+        header h1 { 
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0; 
+            font-size: 20px; 
+            font-weight: 700; 
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
         }
-        h1 { color: #00ea92; font-weight: 600; margin-top: 0; }
-        p { color: #b2adff; font-size: 16px; line-height: 1.6; }
-        .badge { background: rgba(40, 199, 111, 0.2); color: #28c76f; padding: 8px 16px; border-radius: 20px; border: 1px solid #28c76f; font-weight: bold; display: inline-block; margin: 15px 0; }
-        .btn-logout { background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%); color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: bold; margin-top: 25px; transition: transform 0.2s; box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3); }
-        .btn-logout:hover { transform: translateY(-2px); }
+
+        header h1 span { color: var(--electric-blue); }
+        
+        .nav-actions { display: flex; align-items: center; gap: 24px; }
+        
+        .btn-cart { 
+            background: var(--text-main); 
+            border: none;
+            color: var(--surface); 
+            padding: 12px 24px; 
+            border-radius: 30px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            font-size: 13px;
+            letter-spacing: 0.3px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+        }
+
+        .btn-cart:hover { background: var(--electric-blue); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2); }
+        
+        .cart-count { 
+            background: var(--surface); 
+            color: var(--text-main); 
+            padding: 1px 7px; 
+            border-radius: 50%; 
+            font-size: 11px; 
+            font-weight: 700; 
+        }
+
+        .btn-logout { 
+            background: transparent; 
+            border: none; 
+            color: var(--text-muted); 
+            cursor: pointer; 
+            font-weight: 500; 
+            font-size: 13px;
+            transition: color 0.2s; 
+        }
+        .btn-logout:hover { color: var(--neon-pink); }
+
+        .user-welcome { 
+            padding: 35px 50px 0 50px; 
+            max-width: 1300px; 
+            margin: 0 auto; 
+            font-size: 13px; 
+            color: var(--text-muted);
+            letter-spacing: 0.2px;
+        }
+        .user-welcome strong { color: var(--text-main); font-weight: 600; }
+
+        .main-container { 
+            padding: 20px 50px 60px 50px; 
+            max-width: 1300px; 
+            margin: 0 auto; 
+            display: flex; 
+            gap: 50px; 
+        }
+        
+        .catalog-section { flex: 2.8; }
+        .catalog-section h2 { 
+            font-family: 'Space Grotesk', sans-serif;
+            margin-top: 0; 
+            font-size: 15px; 
+            font-weight: 600; 
+            color: var(--text-muted); 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+        }
+        
+        .products-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+            gap: 30px; 
+            margin-top: 25px; 
+        }
+
+        .product-card { 
+            background: var(--surface); 
+            border: var(--border-thin); 
+            border-radius: 0px; 
+            padding: 30px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .product-card:hover { 
+            border-color: var(--text-main);
+            box-shadow: var(--neon-glow);
+            transform: translateY(-2px);
+        }
+        
+        .product-card h3 { 
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 15px 0 0px 0; 
+            font-size: 18px; 
+            font-weight: 500; 
+            color: var(--text-main); 
+            line-height: 1.3; 
+        }
+
+        .product-card .category { 
+            font-size: 10px; 
+            font-weight: 600; 
+            color: var(--text-muted); 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+
+        .product-card .price { 
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px; 
+            color: var(--electric-blue); 
+            font-weight: 600; 
+            margin: 25px 0 15px 0; 
+        }
+        
+        .btn-add { 
+            width: 100%; 
+            background: transparent; 
+            color: var(--text-main); 
+            border: 1px solid var(--text-main); 
+            padding: 12px; 
+            font-weight: 600; 
+            font-size: 13px;
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+        }
+        .btn-add:hover { 
+            background: var(--text-main); 
+            color: var(--surface); 
+        }
+
+        .cart-panel { 
+            flex: 1.2; 
+            background: var(--surface); 
+            border: var(--border-thin); 
+            padding: 35px; 
+            height: fit-content; 
+            position: sticky; 
+            top: 130px; 
+        }
+
+        .cart-panel h2 { 
+            font-family: 'Space Grotesk', sans-serif;
+            margin-top: 0; 
+            font-size: 14px; 
+            font-weight: 600; 
+            color: var(--text-main); 
+            padding-bottom: 15px; 
+            margin-bottom: 20px; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        .cart-items { margin-bottom: 25px; max-height: 350px; overflow-y: auto; }
+        
+        .cart-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+            padding: 16px 0; 
+            border-bottom: 1px solid #f8f9fa; 
+            animation: itemAppear 0.3s ease;
+        }
+
+        .cart-item .item-name { font-weight: 500; font-size: 13px; color: var(--text-main); line-height: 1.4; }
+        .cart-item .item-qty { font-size: 11px; color: var(--text-muted); margin-top: 4px; display: block; }
+        .cart-item .btn-remove { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 11px; padding: 0; margin-top: 8px; transition: color 0.2s; }
+        .cart-item .btn-remove:hover { color: var(--neon-pink); }
+        
+        .cart-total { 
+            display: flex; 
+            justify-content: space-between; 
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px; 
+            font-weight: 600; 
+            border-top: 1px solid #f1f3f5; 
+            padding-top: 20px; 
+            margin-top: 20px; 
+            color: var(--text-main); 
+        }
+
+        .btn-checkout { 
+            width: 100%; 
+            background: var(--electric-blue); 
+            color: white; 
+            border: none; 
+            padding: 15px; 
+            font-weight: 600; 
+            font-size: 13px; 
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-top: 25px; 
+            cursor: pointer; 
+            transition: opacity 0.2s; 
+        }
+        .btn-checkout:hover { opacity: 0.9; }
+        .empty-message { color: var(--text-muted); text-align: center; font-style: italic; padding: 40px 0; font-size: 13px; }
+        
+        .toast-notification { 
+            position: fixed; 
+            bottom: 40px; 
+            right: 40px; 
+            background: var(--text-main); 
+            color: var(--surface); 
+            padding: 16px 28px; 
+            font-size: 13px;
+            font-weight: 500; 
+            display: none; 
+            animation: slideLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+            z-index: 1000; 
+        }
+
+        @keyframes itemAppear { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideLeft { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>¡Autenticación Exitosa!</h1>
-        <div class="badge">Mínimo Producto Viable (MVP) Verificado</div>
-        <p id="bienvenidaUsuario"></p>
-        <p style="font-size: 14px; color: #7872a1;">La sesión se ha iniciado de forma segura. El patrón estructural de datos y el enrutador del controlador respondieron según las especificaciones metodológicas.</p>
-        <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+
+    <header>
+        <h1>Body<span>Paint</span>.</h1>
+        <div class="nav-actions">
+            <button class="btn-cart" onclick="document.getElementById('carrito-seccion').scrollIntoView({behavior: 'smooth'});">
+                Bolsa <span class="cart-count" id="badge-contador">0</span>
+            </button>
+            <button class="btn-logout" onclick="logout()">Salir</button>
+        </div>
+    </header>
+
+    <div id="bienvenidaUsuario" class="user-welcome"></div>
+
+    <div class="main-container">
+        <section class="catalog-section">
+            <h2>Colección Disponible</h2>
+            <div class="products-grid" id="contenedor-productos"></div>
+        </section>
+
+        <aside class="cart-panel" id="carrito-seccion">
+            <h2>Tu Selección</h2>
+            <div id="items-carrito" class="cart-items"></div>
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span id="total-precio">$0</span>
+            </div>
+            <button class="btn-checkout" onclick="alert('Pedido confirmado.\nProcesando con la pasarela logística integrada.')">Finalizar Selección</button>
+        </aside>
     </div>
 
+    <div id="toast" class="toast-notification"></div>
+
+    <script src="app.js"></script>
     <script>
         const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioSesion'));
         if(!usuarioLogueado) {
             window.location.href = 'login.html';
         } else {
-            document.getElementById('bienvenidaUsuario').innerHTML = `Bienvenido/a, <strong>${usuarioLogueado.nombre} ${usuarioLogueado.apellido}</strong>.<br>Dirección de envío vinculada: ${usuarioLogueado.direccionDefault.calle}, ${usuarioLogueado.direccionDefault.localidad}, ${usuarioLogueado.direccionDefault.provincia}.`;
+            document.getElementById('bienvenidaUsuario').innerHTML = `Atelier de: <strong>${usuarioLogueado.nombre} ${usuarioLogueado.apellido}</strong> — Envío: <em>${usuarioLogueado.direccionDefault.calle}, ${usuarioLogueado.direccionDefault.localidad}</em>`;
         }
 
         function logout() {
