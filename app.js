@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+=======
+
+class ModeloUsuarios {
+    static getSTORAGE_KEY() {
+        return 'usuarios_bodypaint_db';
+    }
+>>>>>>> 92e92917a0aaa57562f95c26b42685904d2ddee9
 
 const STORAGE_USER_KEY = 'usuarios_bodypaint_db';
 const STORAGE_CART_KEY = 'carrito_activo_bodypaint';
@@ -23,6 +31,7 @@ class ModeloUsuarios {
     }
 }
 
+<<<<<<< HEAD
 const ProductosDominio = [
     { id: 1, nombre: "Kit Pinturas Aquacolor Profesionales", categoria: "Pigmentos", precio: 15500 },
     { id: 2, nombre: "Set de Pinceles Calibrados de Precisión", categoria: "Herramientas", precio: 6800 },
@@ -35,6 +44,11 @@ class ModeloCarrito {
     constructor() {
         const guardado = localStorage.getItem(STORAGE_CART_KEY);
         this.state = guardado ? JSON.parse(guardado) : [];
+=======
+class AppController {
+    static init() {
+        this.bindEvents();
+>>>>>>> 92e92917a0aaa57562f95c26b42685904d2ddee9
     }
 
     sincronizar() {
@@ -88,14 +102,25 @@ const AppCore = (() => {
         const email = document.getElementById('email').value.trim();
         const msgContainer = document.getElementById('mensaje');
 
+<<<<<<< HEAD
+=======
+        const mensajeDiv = document.getElementById('mensaje');
+
+>>>>>>> 92e92917a0aaa57562f95c26b42685904d2ddee9
         if (ModeloUsuarios.existeEmail(email)) {
             renderAlert(msgContainer, 'El correo indicado ya se encuentra registrado.', 'error');
             return;
         }
 
+<<<<<<< HEAD
         const cliente = {
             nombre: document.getElementById('nombre').value.trim(),
             apellido: document.getElementById('apellido').value.trim(),
+=======
+        const nuevoCliente = {
+            nombre,
+            apellido,
+>>>>>>> 92e92917a0aaa57562f95c26b42685904d2ddee9
             email,
             password: document.getElementById('password').value,
             direccionDefault: {
@@ -106,11 +131,15 @@ const AppCore = (() => {
             }
         };
 
+<<<<<<< HEAD
         ModeloUsuarios.guardar(cliente);
         renderAlert(msgContainer, '✔ Cuenta creada con éxito. Redirigiendo...', 'success');
         
         setTimeout(() => { window.location.href = 'login.html'; }, 1800);
     };
+=======
+        ModeloUsuarios.guardar(nuevoCliente);
+>>>>>>> 92e92917a0aaa57562f95c26b42685904d2ddee9
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -128,6 +157,7 @@ const AppCore = (() => {
         }
     };
 
+<<<<<<< HEAD
     const renderCatalogo = () => {
         const grid = document.getElementById('contenedor-productos');
         if (!grid) return;
@@ -215,3 +245,12 @@ const AppCore = (() => {
 })();
 
 document.addEventListener('DOMContentLoaded', () => AppCore.start());
+=======
+    static renderMensaje(elemento, texto, tipo) {
+        elemento.innerText = texto;
+        elemento.className = `msg ${tipo}`;
+        elemento.style.display = 'block';
+    }
+}
+document.addEventListener('DOMContentLoaded', () => AppController.init());
+>>>>>>> 92e92917a0aaa57562f95c26b42685904d2ddee9
